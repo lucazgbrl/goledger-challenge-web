@@ -11,8 +11,10 @@ const api: AxiosInstance = axios.create({
 });
 
 // A reusable function to fetch data based on asset type
-const fetchAssetData = async (assetType: string): Promise<searchResponse> => {
-  const response = await api.post<searchResponse>("/api/query/search", {
+export const fetchAssetData = async (
+  assetType: string
+): Promise<searchResponse> => {
+  const response = await api.post<searchResponse>("/query/search", {
     query: {
       selector: {
         assetType,
@@ -21,13 +23,5 @@ const fetchAssetData = async (assetType: string): Promise<searchResponse> => {
   });
   return response.data;
 };
-
-// Fetch artists, albums, and playlists
-export const getArtists = async (): Promise<searchResponse> =>
-  fetchAssetData("artist");
-export const getAlbums = async (): Promise<searchResponse> =>
-  fetchAssetData("album");
-export const getPlaylists = async (): Promise<searchResponse> =>
-  fetchAssetData("playlist");
 
 export default api;

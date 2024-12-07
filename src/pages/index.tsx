@@ -1,4 +1,4 @@
-import Card from "@/components/Card";
+import NavigationCard from "@/components/NavigationCard";
 
 const HomePage = () => {
   return (
@@ -10,20 +10,25 @@ const HomePage = () => {
 
       <main>
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          <Card
+          <NavigationCard
             title="Artists"
             description="Discover new artists and their music."
-            href="/ArtistsPage"
+            href="/artists"
           />
-          <Card
+          <NavigationCard
             title="Albums"
             description="Explore the most popular albums."
-            href="/AlbumsPage"
+            href="/albums"
           />
-          <Card
+          <NavigationCard
             title="Playlists"
             description="Find personalized playlists for all tastes."
-            href="/PlaylistsPage"
+            href="/playlists"
+          />
+          <NavigationCard
+            title="Songs"
+            description="Listen to your favorite songs."
+            href="/songs"
           />
         </section>
       </main>
