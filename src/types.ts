@@ -20,6 +20,17 @@ export interface AlbumResponse {
   tag: string;
 }
 
+interface PlaylistProps {
+  description: string;
+  label: string;
+}
+
+export interface PlaylistResponse {
+  label: string;
+  props: PlaylistProps[];
+  tag: string;
+}
+
 export interface searchResponse {
   result: [];
 }
