@@ -18,12 +18,12 @@ const HomePage = () => {
           <Card
             title="Albums"
             description="Explore the most popular albums."
-            href="/albums"
+            href="/AlbumsPage"
           />
           <Card
             title="Playlists"
             description="Find personalized playlists for all tastes."
-            href="/playlists"
+            href="/PlaylistsPage"
           />
         </section>
       </main>

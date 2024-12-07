@@ -10,9 +10,8 @@ const ArtistsPage = () => {
   useEffect(() => {
     const fetchArtists = async () => {
       try {
-        const data = await getArtists();
-        setArtists(data); // Assumes data is an array of artists
-        console.log(data);
+        const { result } = await getArtists();
+        setArtists(result);
       } catch (error: unknown) {
         if (error instanceof Error) {
           setError(error.message);
