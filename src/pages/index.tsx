@@ -13,7 +13,7 @@ const HomePage = () => {
           <Card
             title="Artists"
             description="Discover new artists and their music."
-            href="/artists"
+            href="/ArtistsPage"
           />
           <Card
             title="Albums"
