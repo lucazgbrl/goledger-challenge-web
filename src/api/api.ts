@@ -134,8 +134,6 @@ export const deleteAsset = async (
     cascade,
   };
 
-  console.log(requestBody);
-
   try {
     const response = await api.post("/invoke/deleteAsset", requestBody);
     return response.data;

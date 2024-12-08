@@ -1,6 +1,9 @@
 import NavigationCard from "@/components/NavigationCard";
+import useDocumentTitle from "@/hooks/useDocumentTite";
 
 const HomePage = () => {
+  useDocumentTitle("Home");
+
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <header className="text-center mb-8">
