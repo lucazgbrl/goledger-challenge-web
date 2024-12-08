@@ -15,6 +15,15 @@ const PlaylistCard = ({ playlist }: PlaylistCardProps) => {
     <div className="bg-white rounded-lg shadow-lg p-4">
       <div className="flex justify-between">
         <h3 className="text-lg font-semibold">{playlist.name}</h3>
+        {(playlist.songs.length > 0) && (
+          playlist.songs.map((song, idx) => {
+            return (
+              <div key={idx}>
+                <p>Song: {song.name}</p>
+                <p>Album: {song.album}</p>
+              </div>
+          )}
+        ))}
         <button
           className="text-red-500"
           onClick={() => handleDelete(playlist.name)}
