@@ -2,6 +2,11 @@ import axios, { AxiosInstance } from "axios";
 import { EveryAssetOfAType } from "../types/allAssets";
 import { handleApiError } from "../utils/handleApiError";
 
+interface DeleteRequestBody {
+  key: Record<string, unknown>;
+  cascade: boolean;
+}
+
 const api: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   headers: {
@@ -74,6 +79,7 @@ export const readAssetByName = async (assetType: string, name: string) => {
   }
 };
 
+// search for an asset by key
 export const queryAssetByKey = async (assetType: string, key: string) => {
   try {
     const response = await api.post("/query/search", {
@@ -95,6 +101,7 @@ export const queryAssetByKey = async (assetType: string, key: string) => {
   }
 };
 
+// search for an asset by name
 export const queryAssetByName = async (assetType: string, name: string) => {
   try {
     const response = await api.post("/query/search", {
@@ -116,23 +123,21 @@ export const queryAssetByName = async (assetType: string, name: string) => {
   }
 };
 
-interface DeleteRequestBody {
-  key: Record<string, unknown>;
-  cascade: boolean;
-}
-
+// delete asset with it's data as payload
 export const deleteAsset = async (
   assetType: string,
   keyData: Record<string, unknown>,
-  cascade: boolean = false
+  cascade: boolean
 ) => {
   const requestBody: DeleteRequestBody = {
     key: { "@assetType": assetType, ...keyData },
     cascade,
   };
 
+  console.log(requestBody);
+
   try {
-    const response = await axios.post("/invoke/deleteAsset", requestBody);
+    const response = await api.post("/invoke/deleteAsset", requestBody);
     return response.data;
   } catch (error) {
     handleApiError(error);

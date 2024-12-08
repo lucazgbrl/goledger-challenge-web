@@ -7,6 +7,7 @@ interface Props {
 }
 
 const SongsPage = ({ songs }: Props) => {
+
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <header className="text-center mb-8">

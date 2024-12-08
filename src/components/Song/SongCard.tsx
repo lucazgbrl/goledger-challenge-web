@@ -1,13 +1,26 @@
+import { SongWithAlbumName } from "@/types/song";
+
 interface SongCardProps {
-  name: string;
-  album: string;
+  song: SongWithAlbumName;
+  onDelete: (songData: Record<string, unknown>) => void;
+  isDeleting: boolean;
 }
 
-const SongCard = ({ name, album }: SongCardProps) => (
-  <div className="bg-white p-6 rounded-lg shadow-md text-center">
-    <h2 className="text-xl font-semibold text-gray-800">{name}</h2>
-    <p className="text-gray-500 mt-2">{album}</p>
+const SongCard = ({ song, onDelete, isDeleting }: SongCardProps) => ((
+    <div className="flex justify-between items-center">
+    <span>{ song.name }</span>
+    <span>{ song.albumName }</span>
+    <button
+      onClick={() => onDelete({ name: song.name, album: song.album })}
+      disabled={isDeleting}
+      className={`px-4 py-2 bg-red-500 text-white rounded ${
+        isDeleting ? "opacity-50 cursor-not-allowed" : ""
+      }`}
+    >
+      Delete
+    </button>
   </div>
+  )
 );
 
 export default SongCard;

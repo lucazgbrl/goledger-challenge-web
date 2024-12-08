@@ -16,4 +16,4 @@ export const searchSongsByName = async (name: string) =>
   queryAssetByName("song", name);
 
 export const deleteSong = async (songData: Record<string, unknown>) =>
-  deleteAsset("song", songData);
+  deleteAsset("song", songData, true);
