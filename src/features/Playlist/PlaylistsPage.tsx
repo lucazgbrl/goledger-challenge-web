@@ -16,19 +16,26 @@ const PlaylistsPage: React.FC<Props> = ({ playlists }) => {
 
   return (
     <div className="p-6">
-      <button
-        onClick={handleFormToggle}
-        className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md shadow hover:bg-blue-600"
-      >
-        New Playlist
-      </button>
+      <header className="mb-6 text-center bg-gray-800 p-4 rounded-lg">
+        <h1 className="text-4xl font-bold text-white">Playlists</h1>
+      </header>
+
+      <div className="text-center mb-6">
+        <button
+          onClick={handleFormToggle}
+          className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-md shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105"
+        >
+          New Playlist
+        </button>
+      </div>
 
       {isFormVisible && (
-        <div className="mt-4">
+        <div className="mt-6">
           <PlaylistForm onClose={handleFormToggle} />
         </div>
       )}
-      <PlaylistList playlists={ playlists } />
+
+      <PlaylistList playlists={playlists} />
     </div>
   );
 };

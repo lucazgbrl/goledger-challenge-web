@@ -9,18 +9,19 @@ interface Props {
 
 const ArtistsPage = ({ artists }: Props) => {
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <header className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-blue-500">Artists</h1>
-        <p className="mt-2 text-lg text-gray-600">Explore all artists.</p>
+    <div className="p-6">
+      <header className="mb-6 text-center bg-gray-800 p-4 rounded-lg">
+        <h1 className="text-4xl font-bold text-white">Artists</h1>
+        <p className="mt-2 text-lg text-gray-300">Explore and manage your favorite artists.</p>
       </header>
 
-      <main>
+      <main className="w-full max-w-4xl space-y-8">
         <ArtistForm />
         <ArtistList artists={artists} />
       </main>
     </div>
   );
 };
+
 
 export default ArtistsPage;

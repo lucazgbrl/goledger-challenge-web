@@ -64,11 +64,11 @@ const PlaylistForm = ({ onClose }: { onClose: () => void }) => {
   };
 
   return (
-    <div className="p-6 bg-white shadow-md rounded-md">
-      <h2 className="text-xl font-semibold mb-4">Create New Playlist</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="bg-gradient-to-r from-gray-800 to-black rounded-lg shadow-2xl p-6 max-w-sm mx-auto mb-4 hover:scale-105 transition duration-300">
+      <h2 className="text-2xl font-semibold text-white text-center mb-6">Create New Playlist</h2>
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="playlistName" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="playlistName" className="block text-sm font-medium text-gray-300">
             Playlist Name
           </label>
           <input
@@ -76,13 +76,13 @@ const PlaylistForm = ({ onClose }: { onClose: () => void }) => {
             id="playlistName"
             value={playlistName}
             onChange={(e) => setPlaylistName(e.target.value)}
-            className="mt-1 w-full p-2 border border-gray-300 rounded-md shadow-sm"
+            className="mt-2 w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500"
             placeholder="Enter playlist name"
             required
           />
         </div>
         <div>
-          <label htmlFor="searchSongs" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="searchSongs" className="block text-sm font-medium text-gray-300">
             Search Songs
           </label>
           <input
@@ -90,15 +90,15 @@ const PlaylistForm = ({ onClose }: { onClose: () => void }) => {
             id="searchSongs"
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
-            className="mt-1 w-full p-2 border border-gray-300 rounded-md shadow-sm"
+            className="mt-2 w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500"
             placeholder="Search for songs"
           />
           {songResults.length > 0 && (
-            <ul className="mt-2 border border-gray-300 rounded-md shadow-sm max-h-40 overflow-y-auto">
+            <ul className="mt-2 bg-gray-700 border border-gray-600 rounded-md max-h-40 overflow-y-auto">
               {songResults.map((song) => (
                 <li
                   key={song["@key"]}
-                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                  className="px-4 py-2 hover:bg-gray-600 cursor-pointer"
                   onClick={() => handleAddSong(song)}
                 >
                   {song.name}
@@ -109,18 +109,18 @@ const PlaylistForm = ({ onClose }: { onClose: () => void }) => {
         </div>
         {selectedSongs.length > 0 && (
           <div>
-            <h3 className="text-sm font-medium text-gray-700">Selected Songs</h3>
-            <ul className="mt-2 space-y-1">
+            <h3 className="text-sm font-medium text-gray-300">Selected Songs</h3>
+            <ul className="mt-2 space-y-2">
               {selectedSongs.map((song) => (
                 <li
                   key={song["@key"]}
-                  className="flex justify-between items-center bg-gray-100 px-4 py-2 rounded-md"
+                  className="flex justify-between items-center bg-gray-700 px-4 py-2 rounded-md"
                 >
                   {song.name}
                   <button
                     type="button"
                     onClick={() => handleRemoveSong(song["@key"])}
-                    className="text-red-600 hover:underline"
+                    className="text-red-500 hover:underline"
                   >
                     Remove
                   </button>
@@ -132,18 +132,18 @@ const PlaylistForm = ({ onClose }: { onClose: () => void }) => {
         <button
           type="submit"
           disabled={loading}
-          className={`w-full py-2 px-4 text-white font-semibold rounded-md ${
-            loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+          className={`w-full py-3 px-4 text-white font-semibold rounded-md ${
+            loading ? "bg-gray-500 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
           }`}
         >
           {loading ? "Creating..." : "Create Playlist"}
         </button>
       </form>
-      {successMessage && <p className="mt-4 text-green-600">{successMessage}</p>}
-      {error && <p className="mt-4 text-red-600">{error}</p>}
+      {successMessage && <p className="mt-4 text-green-400">{successMessage}</p>}
+      {error && <p className="mt-4 text-red-500">{error}</p>}
       <button
         onClick={onClose}
-        className="mt-4 text-sm text-gray-600 underline hover:text-gray-800"
+        className="mt-4 text-sm text-gray-400 underline hover:text-gray-200"
       >
         Cancel
       </button>

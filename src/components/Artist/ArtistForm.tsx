@@ -35,22 +35,22 @@ const ArtistForm = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+    <div className="max-w-md mx-auto bg-gray-800 p-6 rounded-lg shadow-lg mb-4">
       {!isFormVisible ? (
         <button
           onClick={() => setIsFormVisible(true)}
-          className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          className="w-full py-3 px-6 bg-blue-600 text-white rounded-md shadow-lg hover:bg-blue-700 transition duration-300"
         >
           Add Artist
         </button>
       ) : (
-        <>
-          <h2 className="text-2xl font-bold text-center mb-4">Add New Artist</h2>
+        <div className="transition-all duration-300 transform">
+          <h2 className="text-2xl font-bold text-center text-white mb-4">Add New Artist</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-300"
               >
                 Name
               </label>
@@ -60,7 +60,7 @@ const ArtistForm = () => {
                 id="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full p-2 border border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-white bg-gray-700"
                 placeholder="Artist Name"
                 required
               />
@@ -68,7 +68,7 @@ const ArtistForm = () => {
             <div>
               <label
                 htmlFor="country"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-300"
               >
                 Country
               </label>
@@ -78,7 +78,7 @@ const ArtistForm = () => {
                 id="country"
                 value={formData.country}
                 onChange={handleChange}
-                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full p-2 border border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-white bg-gray-700"
                 placeholder="Country"
                 required
               />
@@ -86,19 +86,17 @@ const ArtistForm = () => {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
-                loading ? "opacity-50 cursor-not-allowed" : ""
-              }`}
+              className={`w-full py-3 px-6 bg-blue-600 text-white font-semibold rounded-md shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
             >
               {loading ? "Adding..." : "Submit"}
             </button>
           </form>
 
           {successMessage && (
-            <p className="mt-4 text-green-600 text-center">{successMessage}</p>
+            <p className="mt-4 text-green-500 text-center">{successMessage}</p>
           )}
-          {error && <p className="mt-4 text-red-600 text-center">{error}</p>}
-        </>
+          {error && <p className="mt-4 text-red-500 text-center">{error}</p>}
+        </div>
       )}
     </div>
   );

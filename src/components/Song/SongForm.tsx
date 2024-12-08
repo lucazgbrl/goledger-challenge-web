@@ -47,20 +47,20 @@ const SongForm = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+    <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-xl mb-8">
       {!isFormVisible ? (
         <button
           onClick={() => setIsFormVisible(true)}
-          className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          className="w-full py-3 px-6 bg-blue-600 text-white font-semibold rounded-md shadow-lg hover:bg-blue-700 transition duration-300"
         >
           Add Song
         </button>
       ) : (
         <>
-          <h2 className="text-2xl font-bold text-center mb-4">Add New Song</h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <h2 className="text-3xl font-bold text-center text-blue-600 mb-6">Add New Song</h2>
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="name" className="block font-medium text-gray-700">
+              <label htmlFor="name" className="block text-lg font-medium text-gray-700">
                 Song Name
               </label>
               <input
@@ -70,11 +70,11 @@ const SongForm = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
             </div>
             <div>
-              <label htmlFor="album" className="block font-medium text-gray-700">
+              <label htmlFor="album" className="block text-lg font-medium text-gray-700">
                 Album
               </label>
               <input
@@ -84,23 +84,23 @@ const SongForm = () => {
                 value={formData.album}
                 onChange={handleChange}
                 required
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
             </div>
             <div>
               <button
                 type="submit"
-                className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                disabled={loading}
+                className="w-full py-3 px-6 bg-blue-600 text-white font-semibold rounded-md shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
               >
-                {loading ? "Loading..." : "Add Song"}
+                {loading ? "Adding..." : "Add Song"}
               </button>
             </div>
-            {error && <p className="text-red-500 text-sm">{error}</p>}
-            {successMessage && <p className="text-green-500 text-sm">{successMessage}</p>}
+            {error && <p className="text-red-600 text-sm text-center">{error}</p>}
+            {successMessage && <p className="text-green-600 text-sm text-center">{successMessage}</p>}
           </form>
         </>
       )}
-
     </div>
   );
 }
