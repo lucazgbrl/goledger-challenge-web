@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AlbumResponse } from '../../types/album';
 import { useDeleteAlbum } from '@/hooks/album/useDeleteAlbum';
 import { useUpdateAlbum } from "@/hooks/album/useUpdateAlbum";
 import { DeleteResponse } from '@/types/allAssets';
-import { error } from "console";
 
 interface AlbumCardProps {
   album: AlbumResponse;
