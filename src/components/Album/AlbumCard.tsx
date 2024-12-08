@@ -2,7 +2,7 @@ import { AlbumResponse } from '../../types/album';
 
 interface AlbumCardProps {
   album: AlbumResponse;
-  handleDelete: (albumData: Record<string, unknown>) => void;
+  handleDelete: (albumData: AlbumResponse) => void;
   loading: boolean;
   error: string | null;
 }

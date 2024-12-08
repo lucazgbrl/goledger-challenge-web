@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { EveryAssetOfAType } from "../types/allAssets";
+import { FetchDataResponse, EveryAssetOfAType } from "../types/allAssets";
 import { handleApiError } from "../utils/handleApiError";
 
 interface DeleteRequestBody {
@@ -17,7 +17,11 @@ const api: AxiosInstance = axios.create({
 });
 
 // Fetch all assets of the specified type
-export const fetchAssetData = async (assetType: string) => {
+
+// A generic function to fetch assets of any type
+export const fetchAssetData = async <T>(
+  assetType: string
+): Promise<FetchDataResponse<T>> => {
   try {
     const response = await api.post<EveryAssetOfAType>("/query/search", {
       query: {
@@ -31,9 +35,12 @@ export const fetchAssetData = async (assetType: string) => {
       throw new Error("No data received from the server.");
     }
 
-    return response.data;
+    // Assuming the data is of the type we expect for FetchDataResponse
+    return response.data as FetchDataResponse<T>;
   } catch (error) {
-    handleApiError(error);
+    // Handle error
+    console.error("Error fetching asset data:", error);
+    return { result: [] }; // Return a fallback empty result in case of error
   }
 };
 

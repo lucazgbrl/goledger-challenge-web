@@ -5,8 +5,14 @@ import {
   deleteAsset,
 } from "./api";
 import { createAsset } from "./api";
+import { AlbumResponse } from "@/types/album";
+import { FetchDataResponse } from "@/types/allAssets";
 
-export const getAlbums = async () => fetchAssetData("album");
+export const getAlbums = async (): Promise<
+  FetchDataResponse<AlbumResponse>
+> => {
+  return fetchAssetData<AlbumResponse>("album");
+};
 
 export const createAlbum = async (data: object) => createAsset("album", data);
 

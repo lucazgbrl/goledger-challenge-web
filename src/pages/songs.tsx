@@ -1,6 +1,6 @@
 import SongsPage from "@/features/Song/SongsPage";
 import useDocumentTitle from "@/hooks/useDocumentTite";
-import useFetchSongs from "@/hooks/useFetchSongs";
+import useFetchSongs from "@/hooks/song/useFetchSongs";
 
 const SongsPageWrapper = () => {
   const { songs, loading, error } = useFetchSongs();

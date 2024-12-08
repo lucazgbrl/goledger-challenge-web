@@ -1,5 +1,3 @@
-// src/utils/fetchSongsFromPlaylist.ts
-
 import { getSongByKey } from "@/api/song";
 import { fetchAlbumNames } from "./fetchAlbumNames";
 
@@ -7,7 +5,6 @@ const fetchSongsFromPlaylist = async (playlist: {
   songs: { "@key": string }[];
 }) => {
   try {
-    // Fetch song details for each song in the playlist
     const songsWithDetails = await Promise.all(
       playlist.songs.map(async (song) => {
         const fetchSong = await getSongByKey(song["@key"]);
@@ -23,7 +20,6 @@ const fetchSongsFromPlaylist = async (playlist: {
       })
     );
 
-    // Return updated playlist with detailed song data
     return { ...playlist, songs: songsWithDetails };
   } catch (error) {
     console.error("Error fetching songs:", error);

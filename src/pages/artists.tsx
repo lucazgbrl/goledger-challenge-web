@@ -1,9 +1,10 @@
-import useFetchArtists from '@/hooks/useFetchArtits';
 import ArtistsPage from '../features/Artist/ArtistsPage';
 import useDocumentTitle from '@/hooks/useDocumentTite';
+import { getArtists } from '@/api/artist';
+import useFetch from '@/hooks/useFetch';
 
 const ArtistsPageWrapper = () => {
-  const { artists, loading, error } = useFetchArtists();
+  const { data: artists, loading, error } = useFetch(() => getArtists());
 
   useDocumentTitle('Artists');
 

@@ -1,7 +1,7 @@
 // components/Album/AlbumList.tsx
 import AlbumCard from './AlbumCard';
 import { AlbumResponse } from '@/types/album';
-import { useDeleteAlbum } from '@/hooks/useDeleteAlbum';
+import { useDeleteAlbum } from '@/hooks/album/useDeleteAlbum';
 import { DeleteResponse } from '@/types/allAssets';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 const AlbumList = ({ albums }: Props) => {
   const { deleteAlbum, loading, error } = useDeleteAlbum();
 
-  const handleDelete = async (album: Record<string, unknown>) => {
+  const handleDelete = async (album: AlbumResponse) => {
     const response: DeleteResponse = await deleteAlbum({
       name: album.name,
       artist: album.artist,

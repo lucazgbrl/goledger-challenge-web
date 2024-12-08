@@ -1,7 +1,7 @@
 export interface AlbumResponse {
-  "@key": string;
+  "@key"?: string;
   name: string;
-  year: number;
+  year?: number;
   artist: {
     "@assetType": "artist";
     "@key": string;

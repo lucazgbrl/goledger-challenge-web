@@ -5,8 +5,11 @@ import {
   queryAssetByName,
   deleteAsset,
 } from "./api";
+import { SongResponse } from "@/types/song";
 
-export const getSongs = async () => fetchAssetData("song");
+export const getSongs = async () => {
+  return fetchAssetData<SongResponse>("song");
+};
 
 export const createSong = async (data: object) => createAsset("song", data);
 

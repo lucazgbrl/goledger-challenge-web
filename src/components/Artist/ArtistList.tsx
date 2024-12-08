@@ -1,7 +1,6 @@
-// components/Artist/ArtistList.tsx
 import ArtistCard from './ArtistCard';
 import { ArtistsReponse } from '@/types/artist';
-import useDeleteArtist from '@/hooks/useDeleteArtist';
+import useDeleteArtist from '@/hooks/artist/useDeleteArtist';
 
 interface Props {
   artists: ArtistsReponse[];

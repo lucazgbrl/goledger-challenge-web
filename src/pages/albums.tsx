@@ -1,6 +1,6 @@
 import AlbumsPage from "@/features/Album/AlbumsPage";
 import useDocumentTitle from "@/hooks/useDocumentTite";
-import useFetchAlbums from "@/hooks/useFetchAlbums";
+import useFetchAlbums from "@/hooks/album/useFetchAlbums";
 
 const AlbumsPageWrapper = () => {
   const { albums, loading, error } = useFetchAlbums();

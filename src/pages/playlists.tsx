@@ -1,6 +1,6 @@
 import PlaylistsPage from "@/features/Playlist/PlaylistsPage";
 import useDocumentTitle from "@/hooks/useDocumentTite";
-import useFetchPlaylists from "@/hooks/useFetchPlaylists";
+import useFetchPlaylists from "@/hooks/playlist/useFetchPlaylists";
 
 const PlaylistsPageWrapper = () => {
   const { playlists, loading } = useFetchPlaylists();
