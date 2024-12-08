@@ -95,4 +95,25 @@ export const queryAssetByKey = async (assetType: string, key: string) => {
   }
 };
 
+export const queryAssetByName = async (assetType: string, name: string) => {
+  try {
+    const response = await api.post("/query/search", {
+      query: {
+        selector: {
+          "@assetType": assetType,
+          name,
+        },
+      },
+    });
+
+    if (!response.data) {
+      throw new Error(`No data found for asset: ${name}`);
+    }
+
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
 export default api;
