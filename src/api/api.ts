@@ -1,11 +1,12 @@
 import axios, { AxiosInstance } from "axios";
-import { FetchDataResponse, EveryAssetOfAType } from "../types/allAssets";
+import {
+  FetchDataResponse,
+  EveryAssetOfAType,
+  UpdatePayload,
+  DeleteRequestBody,
+  UpdateDataResponse,
+} from "../types/allAssets";
 import { handleApiError } from "../utils/handleApiError";
-
-interface DeleteRequestBody {
-  key: Record<string, unknown>;
-  cascade: boolean;
-}
 
 const api: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
@@ -16,7 +17,12 @@ const api: AxiosInstance = axios.create({
   },
 });
 
-// Fetch all assets of the specified type
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    handleApiError(error);
+  }
+);
 
 // A generic function to fetch assets of any type
 export const fetchAssetData = async <T>(
@@ -38,9 +44,7 @@ export const fetchAssetData = async <T>(
     // Assuming the data is of the type we expect for FetchDataResponse
     return response.data as FetchDataResponse<T>;
   } catch (error) {
-    // Handle error
-    console.error("Error fetching asset data:", error);
-    return { result: [] }; // Return a fallback empty result in case of error
+    throw error;
   }
 };
 
@@ -62,7 +66,7 @@ export const createAsset = async (assetType: string, data: object) => {
 
     return response.data;
   } catch (error) {
-    handleApiError(error);
+    throw error;
   }
 };
 
@@ -82,7 +86,7 @@ export const readAssetByName = async (assetType: string, name: string) => {
 
     return response.data;
   } catch (error) {
-    handleApiError(error);
+    throw error;
   }
 };
 
@@ -104,7 +108,7 @@ export const queryAssetByKey = async (assetType: string, key: string) => {
 
     return response.data;
   } catch (error) {
-    handleApiError(error);
+    throw error;
   }
 };
 
@@ -126,7 +130,7 @@ export const queryAssetByName = async (assetType: string, name: string) => {
 
     return response.data;
   } catch (error) {
-    handleApiError(error);
+    throw error;
   }
 };
 
@@ -145,7 +149,25 @@ export const deleteAsset = async (
     const response = await api.post("/invoke/deleteAsset", requestBody);
     return response.data;
   } catch (error) {
-    handleApiError(error);
+    throw error;
+  }
+};
+
+export const updateAsset = async (payload: UpdatePayload) => {
+  try {
+    const response = await api.post("/invoke/updateAsset", payload);
+
+    if (!response.data) {
+      throw new Error("No response data received.");
+    }
+
+    return {
+      success: true,
+      message: "Asset updated successfully.",
+      updatedAsset: response.data as UpdateDataResponse,
+    };
+  } catch (error) {
+    throw error;
   }
 };
 

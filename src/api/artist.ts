@@ -3,6 +3,7 @@ import {
   createAsset,
   readAssetByName,
   deleteAsset,
+  updateAsset,
 } from "./api";
 import { ArtistsReponse } from "@/types/artist";
 
@@ -21,3 +22,6 @@ export const deleteArtist = async (name: string) =>
     },
     true
   );
+
+export const updateArtist = async (data: object) =>
+  updateAsset({ update: { "@assetType": "artist", ...data } });

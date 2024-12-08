@@ -1,4 +1,4 @@
-import { fetchAssetData, createAsset, deleteAsset } from "./api";
+import { fetchAssetData, createAsset, deleteAsset, updateAsset } from "./api";
 import { PlaylistResponse } from "@/types/playlist";
 
 export const getPlaylists = async () =>
@@ -15,3 +15,6 @@ export const deletePlaylist = async (name: string) =>
     },
     true
   );
+
+export const updatePlaylist = async (data: object) =>
+  updateAsset({ update: { "@assetType": "playlist", ...data } });

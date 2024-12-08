@@ -3,10 +3,11 @@ import {
   queryAssetByKey,
   queryAssetByName,
   deleteAsset,
+  updateAsset,
 } from "./api";
 import { createAsset } from "./api";
 import { AlbumResponse } from "@/types/album";
-import { FetchDataResponse } from "@/types/allAssets";
+import { FetchDataResponse, UpdatePayload } from "@/types/allAssets";
 
 export const getAlbums = async (): Promise<
   FetchDataResponse<AlbumResponse>
@@ -24,3 +25,7 @@ export const queryAlbumByName = async (name: string) =>
 
 export const removeAlbum = async (albumData: Record<string, unknown>) =>
   deleteAsset("album", albumData, true);
+
+export const updateAlbum = async (data: object) => {
+  return updateAsset({ update: { "@assetType": "album", ...data } });
+};
