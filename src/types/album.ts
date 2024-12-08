@@ -1,10 +1,9 @@
-interface AlbumProps {
-  description: string;
-  label: string;
-}
-
 export interface AlbumResponse {
-  label: string;
-  props: AlbumProps[];
-  tag: string;
+  "@key": string;
+  name: string;
+  year: number;
+  artist: {
+    "@assetType": "artist";
+    "@key": string;
+  };
 }

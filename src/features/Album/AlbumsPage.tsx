@@ -1,3 +1,4 @@
+import AlbumForm from "@/components/Album/AlbumForm";
 import AlbumList from "@/components/Album/AlbumList";
 import { AlbumResponse } from "@/types/album";
 
@@ -14,6 +15,7 @@ const AlbumsPage = ({ albums }: Props) => {
       </header>
 
       <main>
+        <AlbumForm />
         <AlbumList albums={albums} />
       </main>
     </div>

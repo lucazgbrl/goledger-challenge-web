@@ -1,4 +1,5 @@
 // pages/artists.tsx
+import ArtistForm from '@/components/Artist/ArtistForm';
 import ArtistList from '@/components/Artist/ArtistList';
 import { ArtistsReponse } from '@/types/artist';
 
@@ -15,6 +16,7 @@ const ArtistsPage = ({ artists }: Props) => {
       </header>
 
       <main>
+        <ArtistForm />
         <ArtistList artists={artists} />
       </main>
     </div>

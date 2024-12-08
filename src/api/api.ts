@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import { searchResponse } from "../types";
+import { handleApiError } from "../utils/helpers";
 
 const api: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
@@ -10,18 +11,67 @@ const api: AxiosInstance = axios.create({
   },
 });
 
-// A reusable function to fetch data based on asset type
-export const fetchAssetData = async (
-  assetType: string
-): Promise<searchResponse> => {
-  const response = await api.post<searchResponse>("/query/search", {
-    query: {
-      selector: {
-        assetType,
+// Fetch all assets of the specified type
+export const fetchAssetData = async (assetType: string) => {
+  try {
+    const response = await api.post<searchResponse>("/query/search", {
+      query: {
+        selector: {
+          "@assetType": assetType,
+        },
       },
-    },
-  });
-  return response.data;
+    });
+
+    if (!response.data) {
+      throw new Error("No data received from the server.");
+    }
+
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// Create a new asset of the specified type
+export const createAsset = async (assetType: string, data: object) => {
+  try {
+    const response = await api.post("/invoke/createAsset", {
+      asset: [
+        {
+          "@assetType": assetType,
+          ...data,
+        },
+      ],
+    });
+
+    if (!response.data) {
+      throw new Error("Asset creation failed. No data returned.");
+    }
+
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// Read a specific asset by name
+export const readAssetByName = async (assetType: string, name: string) => {
+  try {
+    const response = await api.post("/query/readAsset", {
+      key: {
+        "@assetType": assetType,
+        name,
+      },
+    });
+
+    if (!response.data) {
+      throw new Error(`No data found for asset: ${name}`);
+    }
+
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
 };
 
 export default api;

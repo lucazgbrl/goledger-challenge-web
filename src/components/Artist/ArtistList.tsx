@@ -10,7 +10,7 @@ const ArtistList = ({ artists }: Props) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
       {artists.map((artist) => (
-        <ArtistCard key={artist.tag} artist={artist} />
+        <ArtistCard key={artist['@key']} artist={artist} />
       ))}
     </div>
   );
