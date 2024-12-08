@@ -47,7 +47,7 @@ const SongForm = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-xl mb-8">
+    <div className="bg-gradient-to-r from-gray-800 to-black rounded-lg shadow-2xl p-6 max-w-sm mx-auto mb-4 hover:scale-105 transition duration-300">
       {!isFormVisible ? (
         <button
           onClick={() => setIsFormVisible(true)}
@@ -57,10 +57,10 @@ const SongForm = () => {
         </button>
       ) : (
         <>
-          <h2 className="text-3xl font-bold text-center text-blue-600 mb-6">Add New Song</h2>
+          <h2 className="text-3xl font-bold text-center text-blue-400 mb-6">Add New Song</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="name" className="block text-lg font-medium text-gray-700">
+              <label htmlFor="name" className="block text-lg font-medium text-gray-300">
                 Song Name
               </label>
               <input
@@ -70,11 +70,11 @@ const SongForm = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                className="mt-2 block w-full px-4 py-3 border border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-gray-700 text-white"
               />
             </div>
             <div>
-              <label htmlFor="album" className="block text-lg font-medium text-gray-700">
+              <label htmlFor="album" className="block text-lg font-medium text-gray-300">
                 Album
               </label>
               <input
@@ -84,7 +84,7 @@ const SongForm = () => {
                 value={formData.album}
                 onChange={handleChange}
                 required
-                className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                className="mt-2 block w-full px-4 py-3 border border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-gray-700 text-white"
               />
             </div>
             <div>

@@ -36,7 +36,7 @@ const ArtistCard = ({ artist }: ArtistCardProps) => {
   };
 
   return (
-    <div className="bg-gray-800 rounded-lg shadow-md p-6 hover:shadow-xl transition duration-300">
+    <div className="bg-gradient-to-r from-gray-800 to-black rounded-lg shadow-2xl p-6 max-w-sm mx-auto mb-4 hover:scale-105 transition duration-300">
       <h3 className="text-xl font-semibold text-white">{artist.name}</h3>
       {isEditing ? (
         <div className="mt-2">

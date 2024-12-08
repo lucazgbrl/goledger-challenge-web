@@ -9,7 +9,7 @@ interface Props {
 
 const ArtistsPage = ({ artists }: Props) => {
   return (
-    <div className="p-6">
+    <div className="min-h-screen bg-gray-800 p-8">
       <header className="mb-6 text-center bg-gray-800 p-4 rounded-lg">
         <h1 className="text-4xl font-bold text-white">Artists</h1>
         <p className="mt-2 text-lg text-gray-300">Explore and manage your favorite artists.</p>

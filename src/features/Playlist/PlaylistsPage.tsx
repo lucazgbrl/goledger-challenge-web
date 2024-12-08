@@ -15,12 +15,12 @@ const PlaylistsPage: React.FC<Props> = ({ playlists }) => {
   };
 
   return (
-    <div className="p-6">
+    <div className="min-h-screen bg-gray-800 p-8">
       <header className="mb-6 text-center bg-gray-800 p-4 rounded-lg">
         <h1 className="text-4xl font-bold text-white">Playlists</h1>
       </header>
 
-      <div className="text-center mb-6">
+      <div className="bg-gradient-to-r from-gray-800 to-black rounded-lg shadow-2xl p-6 max-w-sm mx-auto mb-4 hover:scale-105 transition duration-300">
         <button
           onClick={handleFormToggle}
           className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-md shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105"

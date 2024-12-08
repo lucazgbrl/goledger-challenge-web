@@ -45,7 +45,7 @@ const AlbumForm = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-gray-800 p-6 rounded-lg shadow-lg mb-4">
+    <div className="bg-gradient-to-r from-gray-800 to-black rounded-lg shadow-2xl p-6 max-w-sm mx-auto mb-4 hover:scale-105 transition duration-300 mt-4">
       {!isFormVisible ? (
         <button
           onClick={() => setIsFormVisible(true)}

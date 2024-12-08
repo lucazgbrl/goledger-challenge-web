@@ -7,9 +7,16 @@ const PlaylistsPageWrapper = () => {
 
   useDocumentTitle("Playlists");
 
-  if (loading) return <div className="text-center">Loading...</div>;
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-800">
+        <span className="text-lg text-white">Loading...</span>
+      </div>
+    );
+  }
 
   return <PlaylistsPage playlists={playlists} />;
 };
+
 
 export default PlaylistsPageWrapper;

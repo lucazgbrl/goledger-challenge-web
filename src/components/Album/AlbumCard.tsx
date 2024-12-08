@@ -10,7 +10,7 @@ interface AlbumCardProps {
 
 const AlbumCard = ({ album }: AlbumCardProps) => {
   const { deleteAlbum, loading: deleteLoading, error: deleteError } = useDeleteAlbum();
-  const { updateAlbum, loading: updateLoading, error: updateError, success } = useUpdateAlbum();
+  const { updateAlbum, loading: updateLoading, error: updateError } = useUpdateAlbum();
 
   // Local state for updating the album
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -46,7 +46,7 @@ const AlbumCard = ({ album }: AlbumCardProps) => {
   };
 
   return (
-    <div className="p-4 border rounded-md shadow-md">
+    <div className="bg-gradient-to-r from-gray-800 to-black rounded-lg shadow-2xl p-6 max-w-sm mx-auto mb-4 hover:scale-105 transition duration-300">
       <h3 className="text-lg font-semibold">{album.name}</h3>
       <p className="text-sm text-gray-500">{album.year}</p>
       {isEditing ? (
