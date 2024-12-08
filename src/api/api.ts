@@ -127,7 +127,7 @@ export const queryAssetByName = async (assetType: string, name: string) => {
 export const deleteAsset = async (
   assetType: string,
   keyData: Record<string, unknown>,
-  cascade: boolean
+  cascade: boolean = false
 ) => {
   const requestBody: DeleteRequestBody = {
     key: { "@assetType": assetType, ...keyData },

@@ -11,7 +11,6 @@ const SongList = ({ songs }: SongListProps) => {
 
   const handleDelete = async (songData: Record<string, unknown>) => {
     await deleteSongHandler({...songData});
-    window.location.reload();
   };
 
   return (

@@ -1,30 +1,19 @@
-import { DeleteResponse } from '@/types/allAssets';
 import { AlbumResponse } from '../../types/album';
-import { useDeleteAlbum } from '@/hooks/useDeleteAlbum';
 
 interface AlbumCardProps {
   album: AlbumResponse;
+  handleDelete: (albumData: Record<string, unknown>) => void;
+  loading: boolean;
+  error: string | null;
 }
 
-const AlbumCard = ({ album }: AlbumCardProps) => {
-  const { deleteAlbum, loading, error } = useDeleteAlbum();
-
-  const handleDelete = async () => {
-    const response: DeleteResponse = await deleteAlbum({
-      name: album.name,
-      artist: album.artist,
-    });
-    if (response.deletedKeys) {
-      alert("Album deleted successfully!");
-    }
-  };
-
+const AlbumCard = ({ album, handleDelete, loading, error }: AlbumCardProps) => {
   return (
     <div className="p-4 border rounded-md shadow-md">
       <h3 className="text-lg font-semibold">{album.name}</h3>
       <p className="text-sm text-gray-500">{album.year}</p>
       <button
-        onClick={handleDelete}
+        onClick={() => handleDelete({ name: album.name, artist: album.artist })}
         disabled={loading}
         className={`mt-2 px-4 py-2 text-white bg-red-500 rounded-md ${
           loading ? "opacity-50 cursor-not-allowed" : "hover:bg-red-600"
