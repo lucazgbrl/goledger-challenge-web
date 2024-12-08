@@ -1,34 +1,39 @@
 import { useState, useEffect } from "react";
+import { Playlist, PlaylistResponse } from "@/types/playlist";
 import { getPlaylists } from "@/api/playlist";
-import { PlaylistResponse } from "@/types/playlist";
+import fetchSongsFromPlaylist from "@/utils/fetchSongByKeys";
 
 const useFetchPlaylists = () => {
-  const [playlists, setPlaylists] = useState<PlaylistResponse[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [playlists, setPlaylists] = useState<Playlist[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPlaylists = async () => {
-      setLoading(true); // Reset loading state at the beginning
-      setError(null); // Reset any previous error message
-
       try {
-        const data = await getPlaylists();
+        // Fetch playlists
+        const response = await getPlaylists();
 
-        if (!data) {
-          throw new Error("No data returned from the server.");
+        if (!response) {
+          throw new Error("Failed to fetch playlists.");
         }
 
-        if (!data.result || data.result.length === 0) {
-          throw new Error("No playlists found.");
-        }
+        const playlists = response.result;
 
-        setPlaylists(data.result);
-      } catch (error: unknown) {
-        setError(
-          error instanceof Error ? error.message : "An unknown error occurred."
+        // Fetch song details for each song in the playlist
+        const playlistsWithSongs = await Promise.all(
+          playlists.map(async (playlist: PlaylistResponse) => {
+            const playlistWithSongs = await fetchSongsFromPlaylist(playlist);
+            return {
+              name: playlist.name,
+              ...playlistWithSongs,
+            };
+          })
         );
-      } finally {
+
+        setPlaylists(playlistsWithSongs);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching playlists:", error);
         setLoading(false);
       }
     };
@@ -36,7 +41,7 @@ const useFetchPlaylists = () => {
     fetchPlaylists();
   }, []);
 
-  return { playlists, loading, error };
+  return { playlists, loading };
 };
 
 export default useFetchPlaylists;

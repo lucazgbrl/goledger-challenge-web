@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { searchResponse } from "../types";
+import { EveryAssetOfAType } from "../types/allAssets";
 import { handleApiError } from "../utils/handleApiError";
 
 const api: AxiosInstance = axios.create({
@@ -14,7 +14,7 @@ const api: AxiosInstance = axios.create({
 // Fetch all assets of the specified type
 export const fetchAssetData = async (assetType: string) => {
   try {
-    const response = await api.post<searchResponse>("/query/search", {
+    const response = await api.post<EveryAssetOfAType>("/query/search", {
       query: {
         selector: {
           "@assetType": assetType,

@@ -1,10 +1,18 @@
-interface PlaylistProps {
-  description: string;
-  label: string;
+interface SongInPlaylist {
+  "@assetType": string;
+  "@key": string;
 }
 
 export interface PlaylistResponse {
-  label: string;
-  props: PlaylistProps[];
-  tag: string;
+  "@key": string;
+  name: string;
+  songs: SongInPlaylist[];
+}
+
+export interface Playlist {
+  name: string;
+  songs: {
+    name: string;
+    album: string;
+  }[];
 }

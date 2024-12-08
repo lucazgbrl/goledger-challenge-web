@@ -1,16 +1,16 @@
-import { PlaylistResponse } from "@/types/playlist";
+import { Playlist } from "@/types/playlist";
 
 interface PlaylistCardProps {
-  playlist: PlaylistResponse;
+  playlist: Playlist;
 }
 
 const PlaylistCard = ({ playlist }: PlaylistCardProps) => (
-  <div className="bg-white p-6 rounded-lg shadow-md text-center">
-    <h2 className="text-xl font-semibold text-gray-800">{playlist.label}</h2>
-    <ul className="mt-2 space-y-1">
-      {playlist.props.map((prop, idx) => (
-        <li key={idx} className="text-sm text-gray-600">
-          <strong>{prop.label}:</strong> {prop.description}
+  <div className="bg-white shadow-lg rounded-lg p-4">
+    <h2 className="text-xl font-semibold">{playlist.name}</h2>
+    <ul className="mt-2">
+      {playlist.songs.map((song, idx) => (
+        <li key={idx} className="text-gray-600">
+          {song.name} - {song.album}
         </li>
       ))}
     </ul>
@@ -18,3 +18,4 @@ const PlaylistCard = ({ playlist }: PlaylistCardProps) => (
 );
 
 export default PlaylistCard;
+
