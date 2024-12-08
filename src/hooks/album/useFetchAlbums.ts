@@ -3,11 +3,7 @@ import { getAlbums } from "@/api/album";
 import { AlbumResponse } from "@/types/album";
 
 const useFetchAlbums = () => {
-  const {
-    data: albums,
-    loading,
-    error,
-  } = useFetch<AlbumResponse>(getAlbums, (response) => response.result);
+  const { data: albums, loading, error } = useFetch<AlbumResponse>(getAlbums);
 
   return { albums, loading, error };
 };

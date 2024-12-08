@@ -1,13 +1,24 @@
 import { AlbumResponse } from '../../types/album';
+import { useDeleteAlbum } from '@/hooks/album/useDeleteAlbum';
+import { DeleteResponse } from '@/types/allAssets';
 
 interface AlbumCardProps {
   album: AlbumResponse;
-  handleDelete: (albumData: AlbumResponse) => void;
-  loading: boolean;
-  error: string | null;
 }
 
-const AlbumCard = ({ album, handleDelete, loading, error }: AlbumCardProps) => {
+const AlbumCard = ({ album}: AlbumCardProps) => {
+  const { deleteAlbum, loading, error } = useDeleteAlbum();
+
+  const handleDelete = async (album: AlbumResponse) => {
+    const response: DeleteResponse = await deleteAlbum({
+      name: album.name,
+      artist: album.artist,
+    });
+    if (response.deletedKeys) {
+      alert("Album deleted successfully!");
+    }
+  };
+
   return (
     <div className="p-4 border rounded-md shadow-md">
       <h3 className="text-lg font-semibold">{album.name}</h3>
