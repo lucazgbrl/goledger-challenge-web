@@ -1,10 +1,14 @@
-interface SongProps {
-  description: string;
-  label: string;
+export interface SongResponse {
+  "@key": string;
+  name: string;
+  album: {
+    "@assetType": string;
+    "@key": string;
+  };
 }
 
-export interface SongResponse {
-  label: string;
-  props: SongProps[];
-  tag: string;
+export interface SongWithAlbumName {
+  "@key": string;
+  name: string;
+  albumName: string;
 }

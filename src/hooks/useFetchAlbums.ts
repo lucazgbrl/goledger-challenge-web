@@ -11,8 +11,12 @@ const useFetchAlbums = () => {
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const { result } = await getAlbums();
-        setAlbums(result);
+        const data = await getAlbums();
+        if (data) {
+          setAlbums(data.result);
+        } else {
+          setAlbums([]);
+        }
       } catch (error: unknown) {
         if (error instanceof Error) {
           setError(error.message);

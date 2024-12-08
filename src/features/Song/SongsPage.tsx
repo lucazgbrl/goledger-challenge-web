@@ -1,8 +1,8 @@
 import SongList from "@/components/Song/SongList";
-import { SongResponse } from "@/types/song";
+import { SongWithAlbumName } from "@/types/song";
 
 interface Props {
-  songs: SongResponse[];
+  songs: SongWithAlbumName[];
 }
 
 const SongsPage = ({ songs }: Props) => {

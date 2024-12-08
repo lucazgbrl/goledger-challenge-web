@@ -1,4 +1,3 @@
-// hooks // useFetchPlaylists.ts
 import { useState, useEffect } from "react";
 import { getPlaylists } from "@/api/playlist";
 import { PlaylistResponse } from "@/types/playlist";
@@ -10,13 +9,25 @@ const useFetchPlaylists = () => {
 
   useEffect(() => {
     const fetchPlaylists = async () => {
+      setLoading(true); // Reset loading state at the beginning
+      setError(null); // Reset any previous error message
+
       try {
-        const { result } = await getPlaylists();
-        setPlaylists(result);
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          setError(error.message);
+        const data = await getPlaylists();
+
+        if (!data) {
+          throw new Error("No data returned from the server.");
         }
+
+        if (!data.result || data.result.length === 0) {
+          throw new Error("No playlists found.");
+        }
+
+        setPlaylists(data.result);
+      } catch (error: unknown) {
+        setError(
+          error instanceof Error ? error.message : "An unknown error occurred."
+        );
       } finally {
         setLoading(false);
       }

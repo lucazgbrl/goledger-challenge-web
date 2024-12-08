@@ -9,9 +9,21 @@ const useFetchArtists = () => {
 
   useEffect(() => {
     const fetchArtists = async () => {
+      setLoading(true); // Reset loading state at the beginning of fetch
+      setError(null); // Reset any previous error message
+
       try {
-        const { result } = await getArtists();
-        setArtists(result);
+        const data = await getArtists();
+
+        if (!data) {
+          throw new Error("No data found.");
+        }
+
+        if (!data.result || data.result.length === 0) {
+          throw new Error("No artists found.");
+        }
+
+        setArtists(data.result);
       } catch (error: unknown) {
         setError(
           error instanceof Error ? error.message : "An unknown error occurred."

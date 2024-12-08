@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import { searchResponse } from "../types";
-import { handleApiError } from "../utils/helpers";
+import { handleApiError } from "../utils/handleApiError";
 
 const api: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
@@ -66,6 +66,27 @@ export const readAssetByName = async (assetType: string, name: string) => {
 
     if (!response.data) {
       throw new Error(`No data found for asset: ${name}`);
+    }
+
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+export const queryAssetByKey = async (assetType: string, key: string) => {
+  try {
+    const response = await api.post("/query/search", {
+      query: {
+        selector: {
+          "@assetType": assetType,
+          "@key": key,
+        },
+      },
+    });
+
+    if (!response.data) {
+      throw new Error("No data found for the specified key.");
     }
 
     return response.data;
