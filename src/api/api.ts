@@ -116,4 +116,27 @@ export const queryAssetByName = async (assetType: string, name: string) => {
   }
 };
 
+interface DeleteRequestBody {
+  key: Record<string, unknown>;
+  cascade: boolean;
+}
+
+export const deleteAsset = async (
+  assetType: string,
+  keyData: Record<string, unknown>,
+  cascade: boolean = false
+) => {
+  const requestBody: DeleteRequestBody = {
+    key: { "@assetType": assetType, ...keyData },
+    cascade,
+  };
+
+  try {
+    const response = await axios.post("/invoke/deleteAsset", requestBody);
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
 export default api;
