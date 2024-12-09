@@ -3,6 +3,7 @@ import AlbumCard from './AlbumCard';
 import { AlbumResponse } from '@/types/album';
 import { useState, useEffect } from 'react';
 import useFetchAlbums from '@/hooks/album/useFetchAlbums';
+import LoadingMessage from '../loadingMessage';
 
 const AlbumList = () => {
   const [albums, setAlbums] = useState<AlbumResponse[]>([]);
@@ -27,6 +28,10 @@ const AlbumList = () => {
       prevAlbums.filter((album) => album.name !== deletedAlbum.name)
     );
   };
+
+  if (albums.length === 0) {
+    return <LoadingMessage pageName="albums" />;
+  }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">

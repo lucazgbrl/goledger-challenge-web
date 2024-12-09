@@ -54,7 +54,7 @@ const PlaylistCard = ({ playlist, onDelete, onUpdate }: PlaylistCardProps) => {
   return (
     <div className="relative bg-gradient-to-r from-gray-800 to-black rounded-lg shadow-xl p-6 max-w-sm mx-auto mb-4 hover:scale-105 transition duration-300">
       <div className="relative z-10 flex justify-between items-center">
-        <h3 className="text-2xl font-bold text-white text-shadow-md">{playlist.name}</h3>
+        <h3 className="text-2xl font-bold text-white text-shadow-md mr-2">{playlist.name}</h3>
         <div className="flex space-x-3">
           <button
             onClick={toggleShowSongs}

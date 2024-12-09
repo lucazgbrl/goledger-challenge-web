@@ -1,5 +1,6 @@
 import { Playlist } from "@/types/playlist";
 import PlaylistCard from "./PlaylistCard";
+import LoadingMessage from "../loadingMessage";
 
 interface Props {
   playlists: Playlist[];
@@ -8,6 +9,10 @@ interface Props {
 }
 
 const PlaylistList = ({ playlists, onDelete: handleDelete, onUpdate: handleUpdate }: Props) => {
+  if (playlists.length === 0) {
+    return <LoadingMessage pageName="playlists" />;
+  }
+
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {playlists.map((playlist, idx) => (

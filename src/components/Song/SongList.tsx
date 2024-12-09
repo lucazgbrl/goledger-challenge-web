@@ -2,6 +2,7 @@ import SongCard from "./SongCard";
 import { SongWithAlbumName } from "@/types/song";
 import useFetchSongs from "@/hooks/song/useFetchSongs";
 import { useEffect, useState } from "react";
+import LoadingMessage from "../loadingMessage";
 
 const SongList = () => {
   const [songs, setSongs] = useState<SongWithAlbumName[]>([]);
@@ -19,6 +20,10 @@ const SongList = () => {
       )
     );
   };
+
+  if (songs.length === 0) {
+    return <LoadingMessage pageName="songs" />;
+  }
 
   return (
     <ul className="space-y-4">

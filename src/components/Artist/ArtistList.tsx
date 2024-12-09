@@ -1,28 +1,17 @@
 import ArtistCard from './ArtistCard';
-import { useEffect, useState } from 'react';
-import useFetchArtists from '@/hooks/artist/useFetchArtits';
+import LoadingMessage from '../loadingMessage';
 import { ArtistsReponse } from '@/types/artist';
 
+interface Props {
+  artists: ArtistsReponse[];
+  onDeleteArtist: (artistName: string) => void;
+  onUpdateArtist: (updatedArtist: ArtistsReponse) => void;
+}
 
-const ArtistList = () => {
-  const [artists, setArtists] = useState<ArtistsReponse[]>([]);
-  const { artists: fetchedArtists } = useFetchArtists();
- 
-  useEffect(() => {
-    setArtists(fetchedArtists);
-  }, [fetchedArtists]);
-
-  const handleUpdateArtist = (updatedArtist: ArtistsReponse) => {
-    setArtists((prev) =>
-      prev.map((artist) =>
-        artist.name === updatedArtist.name ? updatedArtist : artist
-      )
-    );
-  };
-
-  const handleDeleteArtist = (artistName: string) => {
-    setArtists((prev) => prev.filter((artist) => artist.name !== artistName));
-  };
+const ArtistList = ({ artists, onDeleteArtist: handleDeleteArtist, onUpdateArtist: handleUpdateArtist }: Props) => {
+  if (!artists.length) {
+    return <LoadingMessage pageName="artists" />;
+  }
 
   return (
     <ul className="space-y-4">

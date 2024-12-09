@@ -1,4 +1,4 @@
-export interface ArtistsReponse {
+export interface ArtistsResponse {
   name: string;
   country: string;
   "@key": string;

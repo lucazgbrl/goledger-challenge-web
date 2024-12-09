@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { createArtist } from "@/api/artist";
+import { ArtistsResponse } from "@/types/artist";
 
-const ArtistForm = () => {
+type Props = {
+  onNewArtist: (newArtist: ArtistsResponse) => void;
+};
+
+const ArtistForm = ({ onNewArtist }: Props) => {
   const [formData, setFormData] = useState({ name: "", country: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -21,10 +26,11 @@ const ArtistForm = () => {
     setSuccessMessage(null);
 
     try {
-      await createArtist({
+      const newArtist = await createArtist({
         name: formData.name,
         country: formData.country,
       });
+      onNewArtist(newArtist);
       setSuccessMessage("Artist successfully added!");
       setFormData({ name: "", country: "" });
     } catch (err) {
