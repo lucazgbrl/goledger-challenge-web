@@ -1,6 +1,6 @@
 // components/Album/AlbumList.tsx
 import AlbumCard from './AlbumCard';
-import LoadingMessage from '../loadingMessage';
+import LoadingMessage from '../LoadingMessage';
 import { AlbumResponse } from '@/types/album';
 
 interface Props {

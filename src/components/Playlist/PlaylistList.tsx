@@ -1,6 +1,6 @@
 import { Playlist } from "@/types/playlist";
 import PlaylistCard from "./PlaylistCard";
-import LoadingMessage from "../loadingMessage";
+import LoadingMessage from "../LoadingMessage";
 
 interface Props {
   playlists: Playlist[];

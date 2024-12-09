@@ -1,5 +1,5 @@
 import SongCard from "./SongCard";
-import LoadingMessage from "../loadingMessage";
+import LoadingMessage from "../LoadingMessage";
 import { SongResponse, SongWithAlbumName } from "@/types/song";
 
 interface Props {

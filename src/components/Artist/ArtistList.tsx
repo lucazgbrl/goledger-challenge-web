@@ -1,5 +1,5 @@
 import ArtistCard from './ArtistCard';
-import LoadingMessage from '../loadingMessage';
+import LoadingMessage from '../LoadingMessage';
 import { ArtistsResponse } from '@/types/artist';
 
 interface Props {

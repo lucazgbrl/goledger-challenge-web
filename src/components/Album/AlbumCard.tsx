@@ -3,6 +3,7 @@ import { AlbumResponse } from '../../types/album';
 import { useDeleteAlbum } from '@/hooks/album/useDeleteAlbum';
 import { useUpdateAlbum } from "@/hooks/album/useUpdateAlbum";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 interface AlbumCardProps {
   album: AlbumResponse;
@@ -52,8 +53,10 @@ const AlbumCard = ({ album, onUpdate, onDelete }: AlbumCardProps) => {
 
   return (
     <div className="bg-gradient-to-r from-gray-800 to-black rounded-lg shadow-2xl p-6 max-w-sm mx-auto mb-4 hover:scale-105 transition duration-300">
-      <h3 className="text-lg font-semibold">{album.name}</h3>
-      <p className="text-sm text-black-500">{album.year}</p>
+      <Link href={`albums/${album.name}`}>
+        <h3 className="text-lg font-semibold">{album.name}</h3>
+        <p className="text-sm text-black-500">{album.year}</p>
+      </Link>
       {isEditing ? (
         <div className="mt-2">
           <input

@@ -5,5 +5,6 @@ export interface AlbumResponse {
   artist: {
     "@assetType": "artist";
     "@key": string;
+    name?: string;
   };
 }
