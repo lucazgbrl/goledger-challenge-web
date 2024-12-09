@@ -3,7 +3,6 @@ import { SongWithAlbumName } from "@/types/song";
 import useFetchSongs from "@/hooks/song/useFetchSongs";
 import { useEffect, useState } from "react";
 
-
 const SongList = () => {
   const [songs, setSongs] = useState<SongWithAlbumName[]>([]);
   const { songs: fetchedSongs } = useFetchSongs();

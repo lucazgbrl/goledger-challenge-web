@@ -1,15 +1,21 @@
 import { useState } from "react";
+import { Playlist } from "@/types/playlist";
 import { createPlaylist } from "@/api/playlist";
 import { searchSongsByName } from "@/api/song";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const PlaylistForm = ({ onClose }: { onClose: () => void }) => {
+interface Props {
+  onClose: () => void;
+  onNewPlaylist: (updatedPlaylist: Playlist) => void;
+}
+
+const PlaylistForm = ({ onClose, onNewPlaylist }: Props) => {
   const [playlistName, setPlaylistName] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [songResults, setSongResults] = useState<{ "@key": string; name: string }[]>([]);
   const [selectedSongs, setSelectedSongs] = useState<{ "@key": string; name: string }[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handleSearch = async (query: string) => {
     setSearchQuery(query);
@@ -21,7 +27,7 @@ const PlaylistForm = ({ onClose }: { onClose: () => void }) => {
       const results = await searchSongsByName(query);
       setSongResults(results.result);
     } catch (err) {
-      console.error("Error fetching songs:", err);
+      toast.error(`Failed to search songs: ${err instanceof Error ? err.message : "An error occurred."}`);
     }
   };
 
@@ -40,24 +46,24 @@ const PlaylistForm = ({ onClose }: { onClose: () => void }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError(null);
-    setSuccessMessage(null);
 
     try {
       if (!playlistName.trim()) {
         throw new Error("Playlist name is required.");
       }
-      await createPlaylist({
-            name: playlistName,
-            songs: selectedSongs.map((song) => ({ "@key": song["@key"], "@assetType": "song" })),
-            private: false,
-          });
-      setSuccessMessage("Playlist created successfully!");
+
+      const newPlaylist = await createPlaylist({
+        name: playlistName,
+        songs: selectedSongs.map((song) => ({ "@key": song["@key"], "@assetType": "song" })),
+        private: false,
+      });
+      toast.success("Playlist created successfully!");
+      onNewPlaylist(newPlaylist);
       setPlaylistName("");
       setSelectedSongs([]);
-      onClose(); // Close the form on success
+      onClose();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to create playlist.");
+      toast.error(err instanceof Error ? err.message : "Failed to create playlist.");
     } finally {
       setLoading(false);
     }
@@ -132,15 +138,11 @@ const PlaylistForm = ({ onClose }: { onClose: () => void }) => {
         <button
           type="submit"
           disabled={loading}
-          className={`w-full py-3 px-4 text-white font-semibold rounded-md ${
-            loading ? "bg-gray-500 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
-          }`}
+          className={`w-full py-3 px-4 text-white font-semibold rounded-md ${loading ? "bg-gray-500 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"}`}
         >
           {loading ? "Creating..." : "Create Playlist"}
         </button>
       </form>
-      {successMessage && <p className="mt-4 text-green-400">{successMessage}</p>}
-      {error && <p className="mt-4 text-red-500">{error}</p>}
       <button
         onClick={onClose}
         className="mt-4 text-sm text-gray-400 underline hover:text-gray-200"

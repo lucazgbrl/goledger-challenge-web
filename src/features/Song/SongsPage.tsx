@@ -1,13 +1,7 @@
 import SongForm from "@/components/Song/SongForm";
 import SongList from "@/components/Song/SongList";
-import { SongWithAlbumName } from "@/types/song";
 
-interface Props {
-  songs: SongWithAlbumName[];
-}
-
-const SongsPage = ({ songs }: Props) => {
-
+const SongsPage = () => {
   return (
     <div className="min-h-screen bg-gray-800 p-8">
       <header className="text-center mb-8">
@@ -17,7 +11,7 @@ const SongsPage = ({ songs }: Props) => {
 
       <main>
         <SongForm />
-        <SongList songs={songs} />
+        <SongList />
       </main>
     </div>
   );

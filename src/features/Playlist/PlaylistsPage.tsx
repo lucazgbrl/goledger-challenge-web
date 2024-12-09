@@ -1,14 +1,44 @@
-import { useState } from "react";
 import PlaylistForm from "@/components/Playlist/PlaylistForm";
 import PlaylistList from "@/components/Playlist/PlaylistList";
-import { Playlist } from "@/types/playlist";
+import useFetchPlaylists from "@/hooks/playlist/useFetchPlaylists";
+import { Playlist, PlaylistResponse } from "@/types/playlist";
+import { useState, useEffect } from "react";
 
-interface Props {
-  playlists: Playlist[];
-}
 
-const PlaylistsPage: React.FC<Props> = ({ playlists }) => {
+const PlaylistsPage = () => {
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const { playlists: fetchedPlaylists } = useFetchPlaylists();
+  const [playlists, setPlaylists] = useState<Playlist[]>([]);
+
+  useEffect(() => {
+    setPlaylists(fetchedPlaylists);
+  }, [fetchedPlaylists]);
+
+
+  const handleDelete = (deletedPlaylist: string) => {
+    setPlaylists((prevPlaylists) =>
+      prevPlaylists.filter((playlist) => playlist.name !== deletedPlaylist)
+    );
+  };
+
+  const handleUpdate = (updatedPlaylist: Playlist | PlaylistResponse) => {
+    if ("@key" in updatedPlaylist) {
+      const remappedPlaylist: Playlist = {
+        name: updatedPlaylist.name,
+        songs: updatedPlaylist.songs.map((song) => ({
+          name: song["@key"],
+          album: "Unknown Album",
+        })),
+      };
+      setPlaylists((prevPlaylists) => [...prevPlaylists, remappedPlaylist]);
+    } else {
+      setPlaylists((prevPlaylists) =>
+        prevPlaylists.map((playlist) =>
+          playlist.name === updatedPlaylist.name ? updatedPlaylist : playlist
+        )
+      );
+    }
+  };
 
   const handleFormToggle = () => {
     setIsFormVisible((prev) => !prev);
@@ -32,11 +62,11 @@ const PlaylistsPage: React.FC<Props> = ({ playlists }) => {
 
       {isFormVisible && (
         <div className="mt-6">
-          <PlaylistForm onClose={handleFormToggle} />
+          <PlaylistForm onClose={handleFormToggle} onNewPlaylist={ handleUpdate } />
         </div>
       )}
 
-      <PlaylistList playlists={playlists} />
+      <PlaylistList playlists={playlists} onDelete={handleDelete} onUpdate={handleUpdate} />
     </div>
   );
 };
