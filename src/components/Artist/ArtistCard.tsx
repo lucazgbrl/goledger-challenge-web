@@ -3,6 +3,7 @@ import useDeleteArtist from '@/hooks/artist/useDeleteArtist';
 import { useUpdateArtist } from '@/hooks/artist/useUpdateArtist';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import Link from 'next/link';
 
 interface ArtistCardProps {
   artist: ArtistsResponse;
@@ -48,21 +49,22 @@ const ArtistCard = ({ artist, onDeleteArtist, onUpdateArtist }: ArtistCardProps)
 
   return (
     <div className="flex items-center justify-between bg-gradient-to-r from-gray-800 to-black rounded-lg shadow-2xl p-6">
-      <div>
-        <h3 className="text-xl font-semibold text-white">{artist.name}</h3>
-        {isEditing ? (
-          <input
-            type="text"
-            value={updatedCountry}
-            onChange={(e) => setUpdatedCountry(e.target.value)}
-            className="mt-2 border border-gray-600 rounded-md px-2 py-1 text-white bg-gray-700 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Enter new country"
-          />
-        ) : (
-          <p className="text-sm text-gray-400">{artist.country}</p>
-        )}
-      </div>
-
+      <Link href={`/artists/${artist.name}`}>
+          <div>
+            <h3 className="text-xl font-semibold text-white">{artist.name}</h3>
+            {isEditing ? (
+              <input
+                type="text"
+                value={updatedCountry}
+                onChange={(e) => setUpdatedCountry(e.target.value)}
+                className="mt-2 border border-gray-600 rounded-md px-2 py-1 text-white bg-gray-700 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter new country"
+              />
+            ) : (
+              <p className="text-sm text-gray-400">{artist.country}</p>
+            )}
+          </div>
+      </Link>
       <div className="flex space-x-2">
         {isEditing ? (
           <button
@@ -79,12 +81,12 @@ const ArtistCard = ({ artist, onDeleteArtist, onUpdateArtist }: ArtistCardProps)
             Edit
           </button>
         )}
-        <button
+          <button
           onClick={() => handleDelete(artist.name)}
           className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300"
-        >
-          Delete
-        </button>
+          >
+            Delete
+          </button>
       </div>
     </div>
   );

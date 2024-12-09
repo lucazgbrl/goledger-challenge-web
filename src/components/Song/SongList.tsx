@@ -1,9 +1,9 @@
 import SongCard from "./SongCard";
 import LoadingMessage from "../loadingMessage";
-import { SongWithAlbumName } from "@/types/song";
+import { SongResponse, SongWithAlbumName } from "@/types/song";
 
 interface Props {
-  songs: SongWithAlbumName[];
+  songs: SongWithAlbumName[] | SongResponse[];
   onDelete: (songData: Record<string, unknown>) => void;
 }
 

@@ -1,13 +1,13 @@
 import { fetchAssetData } from "@/api/api";
 import useFetch from "@/hooks/useFetch";
-import { ArtistsReponse } from "@/types/artist";
+import { ArtistsResponse } from "@/types/artist";
 
 const useFetchArtists = () => {
   const {
     data: artists,
     loading,
     error,
-  } = useFetch<ArtistsReponse>(
+  } = useFetch<ArtistsResponse>(
     () => fetchAssetData("artist"),
     (data) => data.result
   );

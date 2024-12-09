@@ -1,9 +1,9 @@
-import { SongWithAlbumName } from "@/types/song";
+import { SongResponse, SongWithAlbumName } from "@/types/song";
 import useDeleteSong from "@/hooks/song/useDeleteSong";
 import { toast } from "react-toastify";
 
 interface SongCardProps {
-  song: SongWithAlbumName;
+  song: SongWithAlbumName | SongResponse;
   onDelete: (songData: Record<string, unknown>) => void;
 }
 
@@ -24,7 +24,7 @@ const SongCard = ({ song, onDelete }: SongCardProps) => {
     <div className="flex items-center justify-between bg-gradient-to-r from-gray-800 to-black rounded-lg shadow-2xl p-6">
       <div className="flex flex-col">
         <span className="font-semibold text-xl text-white">{song.name}</span>
-        <span className="text-sm text-gray-400">{song.albumName}</span>
+        { 'albumName' in song && <span className="text-sm text-gray-400">{song.albumName}</span> }
       </div>
       <button
         onClick={() => handleDelete({ name: song.name, album: song.album })}

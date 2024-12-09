@@ -5,9 +5,9 @@ import {
   deleteAsset,
   updateAsset,
 } from "./api";
-import { ArtistsReponse } from "@/types/artist";
+import { ArtistsResponse } from "@/types/artist";
 
-export const getArtists = async () => fetchAssetData<ArtistsReponse>("artist");
+export const getArtists = async () => fetchAssetData<ArtistsResponse>("artist");
 
 export const createArtist = async (data: object) => createAsset("artist", data);
 
