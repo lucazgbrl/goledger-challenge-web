@@ -1,12 +1,12 @@
-import { ArtistsReponse } from '@/types/artist';
+import { ArtistsResponse } from '@/types/artist';
 import useDeleteArtist from '@/hooks/artist/useDeleteArtist';
 import { useUpdateArtist } from '@/hooks/artist/useUpdateArtist';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 interface ArtistCardProps {
-  artist: ArtistsReponse;
-  onUpdateArtist: (updatedArtist: ArtistsReponse) => void;
+  artist: ArtistsResponse;
+  onUpdateArtist: (updatedArtist: ArtistsResponse) => void;
   onDeleteArtist: (artistName: string) => void;
 }
 

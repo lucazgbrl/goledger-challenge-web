@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { createSong } from "@/api/song";
 import { queryAlbumByName } from "@/api/album";
+import { toast } from "react-toastify";
+import { SongWithAlbumName } from "@/types/song";
 
-const SongForm = () => {
+interface Props {
+  onNewSong: (newSong: SongWithAlbumName) => void;
+}
+
+const SongForm = ({ onNewSong }: Props) => {
   const [formData, setFormData] = useState({ name: "", album: "" });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,29 +22,33 @@ const SongForm = () => {
     e.preventDefault();
 
     setLoading(true);
-    setError(null);
-    setSuccessMessage(null);
 
     try {
       const albumData = await queryAlbumByName(formData.album);
 
-      if (!albumData) {
-        setError("Album not found.");
-        return;
+      if (!albumData.result.length) {
+        throw new Error(`Album ${formData.album} not found!`);
       }
 
-      await createSong({
+      const newSong = await createSong({
         name: formData.name,
         album: {
           "@key": albumData.result[0]["@key"],
-          name: albumData.result[0].name,
         },
       });
 
-      setSuccessMessage("Song successfully added!");
+      onNewSong({
+        ...newSong,
+        name: formData.name,
+        albumName: formData.album,
+      });
+      toast.success(`Song ${formData.name} added successfully!`);
       setFormData({ name: "", album: "" });
+      setIsFormVisible(false);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to add song.");
+      if (err instanceof Error) {
+        toast.error(err.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -96,8 +104,6 @@ const SongForm = () => {
                 {loading ? "Adding..." : "Add Song"}
               </button>
             </div>
-            {error && <p className="text-red-600 text-sm text-center">{error}</p>}
-            {successMessage && <p className="text-green-600 text-sm text-center">{successMessage}</p>}
           </form>
         </>
       )}

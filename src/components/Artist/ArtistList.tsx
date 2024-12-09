@@ -1,11 +1,11 @@
 import ArtistCard from './ArtistCard';
 import LoadingMessage from '../loadingMessage';
-import { ArtistsReponse } from '@/types/artist';
+import { ArtistsResponse } from '@/types/artist';
 
 interface Props {
-  artists: ArtistsReponse[];
+  artists: ArtistsResponse[];
   onDeleteArtist: (artistName: string) => void;
-  onUpdateArtist: (updatedArtist: ArtistsReponse) => void;
+  onUpdateArtist: (updatedArtist: ArtistsResponse) => void;
 }
 
 const ArtistList = ({ artists, onDeleteArtist: handleDeleteArtist, onUpdateArtist: handleUpdateArtist }: Props) => {

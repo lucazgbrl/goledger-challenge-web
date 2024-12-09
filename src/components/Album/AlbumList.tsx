@@ -1,34 +1,15 @@
 // components/Album/AlbumList.tsx
 import AlbumCard from './AlbumCard';
-import { AlbumResponse } from '@/types/album';
-import { useState, useEffect } from 'react';
-import useFetchAlbums from '@/hooks/album/useFetchAlbums';
 import LoadingMessage from '../loadingMessage';
+import { AlbumResponse } from '@/types/album';
 
-const AlbumList = () => {
-  const [albums, setAlbums] = useState<AlbumResponse[]>([]);
-  const { albums: fetchedAlbums } = useFetchAlbums();
+interface Props {
+  albums: AlbumResponse[];
+  onUpdate: (updatedAlbum: AlbumResponse) => void;
+  onDelete: (deletedAlbum: AlbumResponse) => void;
+}
 
-  useEffect(() => {
-    setAlbums(fetchedAlbums);
-  }, [fetchedAlbums]);
-
-  const handleUpdateAlbum = (updatedAlbum: AlbumResponse) => {
-    setAlbums((prevAlbums) =>
-      prevAlbums.map((album) =>
-        album.name === updatedAlbum.name && album.artist === updatedAlbum.artist
-          ? updatedAlbum
-          : album
-      )
-    );
-  };
-
-  const handleDeleteAlbum = (deletedAlbum: AlbumResponse) => {
-    setAlbums((prevAlbums) =>
-      prevAlbums.filter((album) => album.name !== deletedAlbum.name)
-    );
-  };
-
+const AlbumList = ({ albums, onDelete: handleDeleteAlbum, onUpdate: handleUpdateAlbum }: Props) => {
   if (albums.length === 0) {
     return <LoadingMessage pageName="albums" />;
   }

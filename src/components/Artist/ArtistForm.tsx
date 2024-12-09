@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createArtist } from "@/api/artist";
 import { ArtistsResponse } from "@/types/artist";
+import { toast } from "react-toastify";
 
 type Props = {
   onNewArtist: (newArtist: ArtistsResponse) => void;
@@ -9,8 +10,6 @@ type Props = {
 const ArtistForm = ({ onNewArtist }: Props) => {
   const [formData, setFormData] = useState({ name: "", country: "" });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,10 +19,7 @@ const ArtistForm = ({ onNewArtist }: Props) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     setLoading(true);
-    setError(null);
-    setSuccessMessage(null);
 
     try {
       const newArtist = await createArtist({
@@ -31,10 +27,13 @@ const ArtistForm = ({ onNewArtist }: Props) => {
         country: formData.country,
       });
       onNewArtist(newArtist);
-      setSuccessMessage("Artist successfully added!");
+      toast.success(`Artist ${formData.name} added successfully!`);
       setFormData({ name: "", country: "" });
+      setIsFormVisible(false);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to add artist.");
+      if (err instanceof Error) {
+        toast.error(err.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -97,11 +96,6 @@ const ArtistForm = ({ onNewArtist }: Props) => {
               {loading ? "Adding..." : "Submit"}
             </button>
           </form>
-
-          {successMessage && (
-            <p className="mt-4 text-green-500 text-center">{successMessage}</p>
-          )}
-          {error && <p className="mt-4 text-red-500 text-center">{error}</p>}
         </div>
       )}
     </div>

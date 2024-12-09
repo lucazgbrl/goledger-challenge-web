@@ -12,11 +12,11 @@ const SongCard = ({ song, onDelete }: SongCardProps) => {
 
   const handleDelete = async (songData: Record<string, unknown>) => {
     await deleteSongHandler({...songData});
-    onDelete(songData);
     
     if(error) {
       toast.error(`Failed to delete song: ${error}`);
     } else {
+      onDelete(songData);
       toast.success(`Song: ${songData.name} deleted successfully`);
     }
   };

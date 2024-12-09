@@ -1,7 +1,30 @@
 import SongForm from "@/components/Song/SongForm";
 import SongList from "@/components/Song/SongList";
+import { SongWithAlbumName } from "@/types/song";
+import useFetchSongs from "@/hooks/song/useFetchSongs";
+import { useEffect, useState } from "react";
 
 const SongsPage = () => {
+  const [songs, setSongs] = useState<SongWithAlbumName[]>([]);
+  const { songs: fetchedSongs } = useFetchSongs();
+
+  useEffect(() => {
+    setSongs(fetchedSongs);
+  }, [fetchedSongs]);
+
+  const handleDeleteSong = (songData: Record<string, unknown>) => {
+    setSongs((prev) =>
+      prev.filter(
+        (song) =>
+          song.name !== songData.name || song.album !== songData.album
+      )
+    );
+  };
+
+  const handleAddSong = (newSong: SongWithAlbumName) => {
+    setSongs((prev) => [...prev, newSong]);
+  };
+
   return (
     <div className="min-h-screen bg-gray-800 p-8">
       <header className="text-center mb-8">
@@ -10,8 +33,8 @@ const SongsPage = () => {
       </header>
 
       <main>
-        <SongForm />
-        <SongList />
+        <SongForm onNewSong={ handleAddSong }/>
+        <SongList onDelete={ handleDeleteSong } songs={ songs } />
       </main>
     </div>
   );

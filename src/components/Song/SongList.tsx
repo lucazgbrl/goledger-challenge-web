@@ -1,26 +1,13 @@
 import SongCard from "./SongCard";
-import { SongWithAlbumName } from "@/types/song";
-import useFetchSongs from "@/hooks/song/useFetchSongs";
-import { useEffect, useState } from "react";
 import LoadingMessage from "../loadingMessage";
+import { SongWithAlbumName } from "@/types/song";
 
-const SongList = () => {
-  const [songs, setSongs] = useState<SongWithAlbumName[]>([]);
-  const { songs: fetchedSongs } = useFetchSongs();
+interface Props {
+  songs: SongWithAlbumName[];
+  onDelete: (songData: Record<string, unknown>) => void;
+}
 
-  useEffect(() => {
-    setSongs(fetchedSongs);
-  }, [fetchedSongs]);
-
-  const handleDeleteSong = (songData: Record<string, unknown>) => {
-    setSongs((prev) =>
-      prev.filter(
-        (song) =>
-          song.name !== songData.name || song.album !== songData.album
-      )
-    );
-  };
-
+const SongList = ({songs, onDelete: handleDeleteSong }: Props) => {
   if (songs.length === 0) {
     return <LoadingMessage pageName="songs" />;
   }

@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { createAlbum } from "@/api/album";
 import { readArtistByName } from "@/api/artist";
+import { toast } from "react-toastify";
+import { AlbumResponse } from "@/types/album";
 
-const AlbumForm = () => {
+interface AlbumFormProps {
+  onNewAlbum: (newAlbum: AlbumResponse) => void;
+}
+
+const AlbumForm = ({ onNewAlbum }: AlbumFormProps) => {
   const [formData, setFormData] = useState({ name: "", year: "", artist: "" });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,27 +22,31 @@ const AlbumForm = () => {
     e.preventDefault();
 
     setLoading(true);
-    setError(null);
-    setSuccessMessage(null);
 
     try {
       const artistData = await readArtistByName(formData.artist);
 
       if (!artistData) {
-        setError("Artist not found.");
+        toast.error(`Artist ${formData.artist} not found!`);
         return;
       }
 
-      await createAlbum({
+      const newAlbum = {
         name: formData.name,
         year: formData.year,
         artist: artistData,
-      });
+      }
 
-      setSuccessMessage("Album successfully added!");
+      await createAlbum(newAlbum);
+
+      onNewAlbum(newAlbum);
+      toast.success(`Album ${formData.name} added successfully!`);
       setFormData({ name: "", year: "", artist: "" });
+      setIsFormVisible(false);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to add album.");
+      if (err instanceof Error) {
+        toast.error(err.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -110,9 +118,6 @@ const AlbumForm = () => {
               {loading ? "Adding..." : "Submit"}
             </button>
           </form>
-
-          {successMessage && <p className="mt-4 text-green-500 text-center">{successMessage}</p>}
-          {error && <p className="mt-4 text-red-500 text-center">{error}</p>}
         </>
       )}
     </div>
