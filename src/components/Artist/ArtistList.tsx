@@ -1,17 +1,37 @@
 import ArtistCard from './ArtistCard';
+import { useEffect, useState } from 'react';
+import useFetchArtists from '@/hooks/artist/useFetchArtits';
 import { ArtistsReponse } from '@/types/artist';
 
-interface Props {
-  artists: ArtistsReponse[];
-}
 
-const ArtistList = ({ artists }: Props) => {
+const ArtistList = () => {
+  const [artists, setArtists] = useState<ArtistsReponse[]>([]);
+  const { artists: fetchedArtists } = useFetchArtists();
+ 
+  useEffect(() => {
+    setArtists(fetchedArtists);
+  }, [fetchedArtists]);
+
+  const handleUpdateArtist = (updatedArtist: ArtistsReponse) => {
+    setArtists((prev) =>
+      prev.map((artist) =>
+        artist.name === updatedArtist.name ? updatedArtist : artist
+      )
+    );
+  };
+
+  const handleDeleteArtist = (artistName: string) => {
+    setArtists((prev) => prev.filter((artist) => artist.name !== artistName));
+  };
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <ul className="space-y-4">
       {artists.map((artist) => (
-        <ArtistCard key={artist['@key']} artist={artist} />
+        <li key={artist['@key']}>
+          <ArtistCard artist={artist} onDeleteArtist={ handleDeleteArtist } onUpdateArtist={ handleUpdateArtist } />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 

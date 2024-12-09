@@ -1,13 +1,8 @@
 // pages/artists.tsx
 import ArtistForm from '@/components/Artist/ArtistForm';
 import ArtistList from '@/components/Artist/ArtistList';
-import { ArtistsReponse } from '@/types/artist';
 
-interface Props {
-  artists: ArtistsReponse[];
-}
-
-const ArtistsPage = ({ artists }: Props) => {
+const ArtistsPage = () => {
   return (
     <div className="min-h-screen bg-gray-800 p-8">
       <header className="mb-6 text-center bg-gray-800 p-4 rounded-lg">
@@ -17,7 +12,7 @@ const ArtistsPage = ({ artists }: Props) => {
 
       <main className="w-full max-w-4xl space-y-8">
         <ArtistForm />
-        <ArtistList artists={artists} />
+        <ArtistList />
       </main>
     </div>
   );
