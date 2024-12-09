@@ -1,12 +1,7 @@
 import AlbumForm from "@/components/Album/AlbumForm";
 import AlbumList from "@/components/Album/AlbumList";
-import { AlbumResponse } from "@/types/album";
 
-interface Props {
-  albums: AlbumResponse[];
-}
-
-const AlbumsPage = ({ albums }: Props) => {
+const AlbumsPage = () => {
   return (
     <div className="min-h-screen bg-gray-800 text-white p-8">
       <header className="text-center mb-12">
@@ -17,7 +12,7 @@ const AlbumsPage = ({ albums }: Props) => {
       <main>
         <div className="max-w-4xl mx-auto space-y-8">
           <AlbumForm />
-          <AlbumList albums={albums} />
+          <AlbumList />
         </div>
       </main>
     </div>

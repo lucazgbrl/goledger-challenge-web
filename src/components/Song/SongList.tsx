@@ -1,19 +1,34 @@
 import SongCard from "./SongCard";
 import { SongWithAlbumName } from "@/types/song";
+import useFetchSongs from "@/hooks/song/useFetchSongs";
+import { useEffect, useState } from "react";
 
-interface SongListProps {
-  songs: SongWithAlbumName[];
-}
 
-const SongList = ({ songs }: SongListProps) => {
+const SongList = () => {
+  const [songs, setSongs] = useState<SongWithAlbumName[]>([]);
+  const { songs: fetchedSongs } = useFetchSongs();
+
+  useEffect(() => {
+    setSongs(fetchedSongs);
+  }, [fetchedSongs]);
+
+  const handleDeleteSong = (songData: Record<string, unknown>) => {
+    setSongs((prev) =>
+      prev.filter(
+        (song) =>
+          song.name !== songData.name || song.album !== songData.album
+      )
+    );
+  };
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <ul className="space-y-4">
       {songs.map((song) => (
-        <div key={song["@key"]} className="transform hover:scale-105 transition-transform duration-300">
-          <SongCard song={song} />
-        </div>
+        <li key={song["@key"]}>
+          <SongCard song={song} onDelete={ handleDeleteSong } />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 

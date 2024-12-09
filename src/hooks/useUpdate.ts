@@ -11,8 +11,9 @@ const useUpdate = (updateData: (data: object) => Promise<UpdateResponse>) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
+  const [response, setResponse] = useState<UpdateResponse | null>(null);
 
-  const memoizedUpdateData = useCallback(updateData, []);
+  const memorizedUpdateData = useCallback(updateData, []);
 
   const updateEntity = async (data: object) => {
     setLoading(true);
@@ -20,7 +21,8 @@ const useUpdate = (updateData: (data: object) => Promise<UpdateResponse>) => {
     setSuccess(false);
 
     try {
-      await memoizedUpdateData(data);
+      const fetchUpdt = await memorizedUpdateData(data);
+      setResponse(fetchUpdt);
       setSuccess(true);
     } catch (error: unknown) {
       setError(
@@ -29,6 +31,8 @@ const useUpdate = (updateData: (data: object) => Promise<UpdateResponse>) => {
     } finally {
       setLoading(false);
     }
+
+    return response;
   };
 
   return { updateEntity, loading, error, success };

@@ -17,7 +17,6 @@ export default function useDelete<T>(
     try {
       await deleteFn(data);
       setSuccess(true);
-      alert(`Successfully deleted ${entityType}`);
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);

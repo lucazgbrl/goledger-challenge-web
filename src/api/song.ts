@@ -4,7 +4,6 @@ import {
   queryAssetByKey,
   queryAssetByName,
   deleteAsset,
-  updateAsset,
 } from "./api";
 import { SongResponse } from "@/types/song";
 
@@ -21,6 +20,3 @@ export const searchSongsByName = async (name: string) =>
 
 export const deleteSong = async (songData: Record<string, unknown>) =>
   deleteAsset("song", songData, true);
-
-export const updateSong = async (data: object) =>
-  updateAsset({ update: { "@assetType": "song", ...data } });

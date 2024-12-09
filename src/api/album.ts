@@ -7,7 +7,7 @@ import {
 } from "./api";
 import { createAsset } from "./api";
 import { AlbumResponse } from "@/types/album";
-import { FetchDataResponse, UpdatePayload } from "@/types/allAssets";
+import { FetchDataResponse } from "@/types/allAssets";
 
 export const getAlbums = async (): Promise<
   FetchDataResponse<AlbumResponse>

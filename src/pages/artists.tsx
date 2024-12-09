@@ -1,4 +1,4 @@
-import ArtistsPage from '../features/Artist/ArtistsPage';
+import ArtistsPage from '@/features/Artist/ArtistsPage';
 import useDocumentTitle from '@/hooks/useDocumentTite';
 
 const ArtistsPageWrapper = () => {
